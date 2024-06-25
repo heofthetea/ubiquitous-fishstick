@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "stark.prm_project"
+    namespace = "stark.prm.project"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "stark.prm_project"
+        applicationId = "stark.prm.project"
         minSdk = 28
         targetSdk = 34
         versionCode = 1

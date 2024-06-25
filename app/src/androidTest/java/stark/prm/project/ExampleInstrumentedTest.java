@@ -1,4 +1,4 @@
-package stark.prm_project;
+package stark.project;
 
 import android.content.Context;
 

@@ -1,4 +1,4 @@
-package stark.prm_project;
+package stark.prm.project;
 
 import android.os.Bundle;
 
