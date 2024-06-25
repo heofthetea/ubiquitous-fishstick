@@ -8,15 +8,14 @@ public class Database {
     private static Database instance;
     private static HashMap<UUID, Lecture> lectures;
     private static HashMap<UUID, Module> modules;
+    // Since Homeworks are Notes, they should also be stored in this Map.
     private static HashMap<UUID, Note> notes;
-    private static HashMap<UUID, Homework> homework; //TODO discuss whether to throw this one out due to inheritance
 
 
     private Database() {
         lectures = new HashMap<>();
         modules = new HashMap<>();
         notes = new HashMap<>();
-        homework = new HashMap<>();
     }
 
     public static Database getInstance() {
@@ -26,11 +25,22 @@ public class Database {
         return instance;
     }
 
-    public static void destroy() {
+    public void destroy() {
         instance = null;
     }
 
     //----------------------------------------------------------------------------------------------
+    public void add(Note note) {
+        notes.put(note.getId(), note);
+    }
+
+    public void add(Lecture lecture) {
+        lectures.put(lecture.getId(), lecture);
+    }
+
+    public void add(Module module) {
+        modules.put(module.getId(), module);
+    }
 
     //----------------------------------------------------------------------------------------------
 
@@ -60,13 +70,5 @@ public class Database {
 
     public void setNotes(HashMap<UUID, Note> notes) {
         Database.notes = notes;
-    }
-
-    public HashMap<UUID, Homework> getHomework() {
-        return homework;
-    }
-
-    public void setHomework(HashMap<UUID, Homework> homework) {
-        Database.homework = homework;
     }
 }

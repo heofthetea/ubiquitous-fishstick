@@ -39,8 +39,8 @@ public class Module {
     }
 
 
-    public List<Homework> getHomework() {
-        return Database.getInstance().getHomework().values().stream()
+    public List<Note> getNotes() {
+        return Database.getInstance().getNotes().values().stream()
                 .filter(h -> h.getModule().equals(this))
                 .collect(Collectors.toList());
     }

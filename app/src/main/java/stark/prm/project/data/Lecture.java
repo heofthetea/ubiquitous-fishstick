@@ -14,7 +14,7 @@ public class Lecture {
     //TODO add List of Notes?
 
 
-    public Lecture(Module module, String topic, String dozent) {
+    public Lecture(Module module, String topic) {
         this.id = UUID.randomUUID();
         if(module == null)
             throw new IllegalArgumentException("module cannot be null");

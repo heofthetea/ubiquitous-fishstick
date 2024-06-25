@@ -1,4 +1,4 @@
-package stark.project;
+package stark.prm.project;
 
 import org.junit.Test;
 
