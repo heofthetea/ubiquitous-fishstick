@@ -42,6 +42,34 @@ public class Database {
         modules.put(module.getId(), module);
     }
 
+
+    /**
+     *
+     * @param note stand-alone {@link Note} object with respective changes
+     * @return note if replacement was successful, else null
+     */
+    public Note update(Note note) {
+        return notes.replace(note.getId(), note);
+    }
+
+    /**
+     *
+     * @param module stand-alone {@link Module} object with respective changes
+     * @return module if replacement was successful, else null
+     */
+    public Module update(Module module) {
+        return modules.replace(module.getId(), module);
+    }
+
+    /**
+     *
+     * @param lecture stand-alone {@link Lecture} object with respective changes
+     * @return lecture if replacement was successful, else null
+     */
+    public Lecture update(Lecture lecture) {
+        return lectures.replace(lecture.getId(), lecture);
+    }
+
     //----------------------------------------------------------------------------------------------
 
     public void setInstance(Database instance) {
