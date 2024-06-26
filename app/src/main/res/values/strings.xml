@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">PRM_Project</string>
+
+    <string name="headerHomework">Hausaufgaben hinzufügen</string>
+
+    <string name="textProgress">Fortschritt:</string>
+    <string name="textTitle">Titel</string>
+    <string name="textPageNum">Seite Nr.</string>
+    <string name="textAdd">Hinzufügen</string>
+    <string name="textDescription">Beschreibung</string>
+    <string name="textDate">Datum</string>
+    <string name="textLecture">Vorlesung</string>
 </resources>
