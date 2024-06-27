@@ -1,43 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".homework"
     android:background="@color/white"
+    android:layout_gravity="start"
     >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="5dp"
-        android:paddingBottom="20dp"
-        android:orientation="horizontal"
+        android:layout_marginVertical="0dp"
         android:background="@drawable/header_background"
-        android:gravity="top"
-        >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="0dp"
-            android:ems="10"
-            android:textSize="40sp"
-            android:text="@string/headerHomework"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:navigationIcon="@drawable/bars_solid" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:ems="10"
+                android:text="@string/headerHomework"
+                android:textSize="35sp" />
+
+        </LinearLayout>
+
 
         <!--
         (String description, Lecture lecture, String name, int pageNumber, double progress, Date dueDate)
@@ -46,24 +50,23 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="60dp"
             android:text="@string/textLecture"
             android:textSize="18sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/input_background"
-            >
+            android:background="@drawable/input_background">
+
             <Spinner
                 android:id="@+id/spinnerLecture"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:autofillHints="lecture"
-                android:spinnerMode="dropdown"
                 android:padding="13dp"
-                />
+                android:spinnerMode="dropdown" />
         </LinearLayout>
 
 
@@ -71,7 +74,7 @@
             android:id="@+id/editTextTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="10dp"
             android:autofillHints="title"
             android:background="@drawable/input_background"
             android:ems="10"
