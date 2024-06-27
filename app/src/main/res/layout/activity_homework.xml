@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
-            android:text="@string/textLecture"
+            android:text="@string/text_lecture"
             android:textSize="18sp" />
 
         <LinearLayout
@@ -60,25 +60,38 @@
             android:background="@drawable/input_background">
 
             <Spinner
-                android:id="@+id/spinnerLecture"
+                android:id="@+id/spinner_lecture"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:autofillHints="lecture"
+                android:dropDownWidth="match_parent"
                 android:padding="13dp"
                 android:spinnerMode="dropdown" />
         </LinearLayout>
 
+        <EditText
+            android:id="@+id/edit_text_new_lecture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:autofillHints="lecture"
+            android:background="@drawable/input_background"
+            android:ems="10"
+            android:hint="@string/text_new_lecture"
+            android:inputType="text"
+            android:visibility="gone"
+            android:padding="12dp" />
 
         <EditText
-            android:id="@+id/editTextTitle"
+            android:id="@+id/edit_text_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:autofillHints="title"
             android:background="@drawable/input_background"
             android:ems="10"
-            android:hint="@string/textTitle"
+            android:hint="@string/text_title"
             android:inputType="text"
             android:padding="12dp" />
 
@@ -92,19 +105,23 @@
             >
 
             <EditText
-                android:id="@+id/editTextDueDate"
+                android:id="@+id/edit_text_due_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:autofillHints="date"
                 android:background="@drawable/input_background"
                 android:ems="10"
-                android:hint="@string/textDate"
+                android:hint="@string/text_date"
                 android:inputType="date"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:padding="12dp" />
 
             <EditText
-                android:id="@+id/editTextNumber"
+                android:id="@+id/edit_text_number"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -113,7 +130,7 @@
                 android:autofillHints="page"
                 android:background="@drawable/input_background"
                 android:ems="10"
-                android:hint="@string/textPageNum"
+                android:hint="@string/text_page_num"
                 android:inputType="number"
                 android:padding="12dp" />
 
@@ -121,28 +138,29 @@
 
 
         <EditText
-            android:id="@+id/editTextTextDescription"
+            android:id="@+id/edit_text_text_description"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="180dp"
             android:layout_marginTop="10dp"
             android:autofillHints="description"
             android:background="@drawable/input_background"
             android:ems="10"
-            android:hint="@string/textDescription"
+            android:hint="@string/text_description"
             android:inputType="textMultiLine"
+            android:gravity="top"
             android:padding="10dp" />
 
 
         <TextView
-            android:id="@+id/seekBarProgressText"
+            android:id="@+id/seek_bar_progress_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@string/textProgress"
+            android:text="@string/text_progress"
             android:textSize="18sp" />
 
         <SeekBar
-            android:id="@+id/seekBarProgress"
+            android:id="@+id/seek_bar_progress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -151,13 +169,13 @@
             android:progress="0" />
 
         <Button
-            android:id="@+id/btnAddHomework"
+            android:id="@+id/btn_add_homework"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/dhbw_red"
-            android:text="@string/textAdd"
+            android:text="@string/text_add"
             android:textSize="20sp" />
 
 

@@ -3,11 +3,12 @@
 
     <string name="headerHomework">Hausaufgaben hinzufügen</string>
 
-    <string name="textProgress">Fortschritt:</string>
-    <string name="textTitle">Titel</string>
-    <string name="textPageNum">Seite Nr.</string>
-    <string name="textAdd">Hinzufügen</string>
-    <string name="textDescription">Beschreibung</string>
-    <string name="textDate">Datum</string>
-    <string name="textLecture">Vorlesung</string>
+    <string name="text_progress">Fortschritt:</string>
+    <string name="text_title">Titel</string>
+    <string name="text_page_num">Seite Nr.</string>
+    <string name="text_add">Hinzufügen</string>
+    <string name="text_description">Beschreibung</string>
+    <string name="text_date">Datum</string>
+    <string name="text_lecture">Vorlesung</string>
+    <string name="text_new_lecture">Vorlesung</string>
 </resources>
