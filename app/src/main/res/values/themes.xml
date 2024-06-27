@@ -4,9 +4,11 @@
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/dhbw_red</item>
         <item name="colorAccent">@color/dhbw_red</item>
+        <item name="android:statusBarColor">#00000000</item>
 
 
     </style>
+
     <style name="datepicker" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorPrimary">@color/header_background_color</item>
         <item name="colorAccent">@color/dhbw_red</item>

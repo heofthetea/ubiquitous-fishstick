@@ -13,6 +13,9 @@
         android:theme="@style/Theme.PRM_Project"
         tools:targetApi="31">
         <activity
+            android:name=".progress"
+            android:exported="false" />
+        <activity
             android:name=".homework"
             android:exported="false" />
         <activity
