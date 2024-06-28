@@ -5,7 +5,7 @@
     android:id="@+id/homework_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".homework"
+    tools:context=".HomeworkActivity"
     android:background="@color/white"
     android:layout_gravity="start"
     android:fitsSystemWindows="true"
@@ -42,12 +42,14 @@
                 android:paddingTop="20dp">
 
                 <androidx.appcompat.widget.Toolbar
+                    app:title=""
                     android:id="@+id/homework_toolbar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:minHeight="?attr/actionBarSize"
-                    android:theme="?attr/actionBarTheme"
-                    app:navigationIcon="@drawable/bars_solid" />
+                    android:theme="?attr/actionBarTheme"/>
+                    <!-- app:navigationIcon="@drawable/bars_solid"-->
+
 
 
                 <TextView
@@ -78,7 +80,7 @@
                 android:background="@drawable/input_background">
 
                 <Spinner
-                    android:id="@+id/spinner_lecture"
+                    android:id="@+id/homework_spinner_module"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -89,20 +91,7 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/edit_text_new_lecture"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:autofillHints="lecture"
-                android:background="@drawable/input_background"
-                android:ems="10"
-                android:hint="@string/text_new_lecture"
-                android:inputType="text"
-                android:padding="12dp"
-                android:visibility="gone" />
-
-            <EditText
-                android:id="@+id/edit_text_title"
+                android:id="@+id/homework_edit_text_lecture"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -123,7 +112,7 @@
                 >
 
                 <EditText
-                    android:id="@+id/edit_text_due_date"
+                    android:id="@+id/homework_edit_text_due_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
@@ -139,7 +128,7 @@
                     android:padding="12dp" />
 
                 <EditText
-                    android:id="@+id/edit_text_number"
+                    android:id="@+id/homework_edit_text_number"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
@@ -156,7 +145,7 @@
 
 
             <EditText
-                android:id="@+id/edit_text_text_description"
+                android:id="@+id/homework_edit_text_description"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 android:layout_marginTop="10dp"
@@ -170,7 +159,7 @@
 
 
             <TextView
-                android:id="@+id/seek_bar_progress_text"
+                android:id="@+id/homework_seek_bar_progress_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -178,7 +167,7 @@
                 android:textSize="18sp" />
 
             <SeekBar
-                android:id="@+id/seek_bar_progress"
+                android:id="@+id/homework_seek_bar_progress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
