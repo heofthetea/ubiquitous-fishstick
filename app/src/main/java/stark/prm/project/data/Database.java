@@ -113,14 +113,14 @@ public class Database {
 
     public Module getModuleByName(String target) {
         return (Module) modules.values().stream()
-                .filter(m -> m.getName().equals(target))
+                .filter(m -> m.getName().contains(target))
                 .findFirst()
                 .orElse(null);
     }
 
     public Lecture getLectureByTopic(String target) {
         return (Lecture) lectures.values().stream()
-                .filter(m -> m.getTopic().equals(target))
+                .filter(m -> m.getTopic().contains(target))
                 .findFirst()
                 .orElse(null);
 

@@ -175,4 +175,16 @@ public class DatabaseTest {
 
         db.destroy();
     }
+
+
+    @Test
+    public void getModuleByNameTest() {
+        Database db = Database.getInstance();
+
+        db.add(new Module("name", "dozent"));
+        db.add(new Module("another name", "dozent"));
+
+
+        db.destroy();
+    }
 }
