@@ -19,11 +19,10 @@ import android.widget.Toast;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.UUID;
 
 import stark.prm.project.data.Database;
+import stark.prm.project.data.Homework;
 import stark.prm.project.data.Lecture;
 import stark.prm.project.data.Module;
 import stark.prm.project.uiHelper.UiDatePicker;
@@ -97,22 +96,18 @@ public class HomeworkActivity extends AppCompatActivity {
             Toast.makeText(this, "Error bei Datum", Toast.LENGTH_SHORT).show();
         }
 
-        Module module = null;
-        HashMap<UUID, Module> moduleMap= db.getModules();
-        for (Module item : moduleMap.values()) {
-            if(item.getName().equals(spinner.getSelectedItem().toString())) module = item;
+        Module module = db.getModuleByName(spinner.getSelectedItem().toString());
+        if(module == null) {
+            throw new RuntimeException("selected Module doesn't exist");
         }
 
-        Lecture lecture = null;
-        HashMap<UUID, Lecture> lectureMap = db.getLectures();
-        for (Lecture item : lectureMap.values()) {
-            if(item.getTopic().equals(topic)) lecture = item;
-        }
+        Lecture lecture = db.getLectureByTopic(topic);
         if(lecture == null) {
             lecture = new Lecture(module, topic);
+            db.add(lecture);
         }
-        
-        stark.prm.project.data.Homework homework = new stark.prm.project.data.Homework(
+
+        Homework homework = new Homework(
                 editDesc.getText().toString(),
                 lecture,
                 Integer.parseInt(pageNum.getText().toString()),

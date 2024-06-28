@@ -30,9 +30,6 @@ public class UiSpinner {
         for (Module item : moduleMap.values()) {
             arraySpinner.add(item.getName());
         }
-        arraySpinner.add("PRM");
-        arraySpinner.add("Algorithmen");
-        arraySpinner.add("Analysis");
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context,
                 android.R.layout.simple_spinner_item, arraySpinner);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
