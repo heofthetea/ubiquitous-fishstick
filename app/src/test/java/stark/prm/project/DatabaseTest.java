@@ -55,7 +55,7 @@ public class DatabaseTest {
                 .5,
                 new Date()
         );
-        final Homework HOMEWORK_WITH_MODULE  = new Homework(
+        final Homework HOMEWORK_WITH_MODULE = new Homework(
                 "homework with module",
                 mod1,
                 2,
@@ -74,13 +74,11 @@ public class DatabaseTest {
                             "another dozent"
                     )
             );
-        } catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             errorThrown = true;
         }
 
         Assert.assertTrue(errorThrown);
-
-
 
 
         Assert.assertEquals(2, db.getNotes().size());
@@ -111,12 +109,12 @@ public class DatabaseTest {
                 "Note 3 should not be referenced"
         )));
 
-            final List<Note> NOTES_OF_TEST_LECTURE = testLecture.getNotes();
+        final List<Note> NOTES_OF_TEST_LECTURE = testLecture.getNotes();
 
         Assert.assertEquals(2, NOTES_OF_TEST_LECTURE.size());
         // I'm also sorry for this, but generating a hash map of ID's (which will mess wiith the order of the created objects)
         // makes this the only sure-fire way to verify a certain element exists in the List
-        // I also could have stored an Object reference when I created the object but naaaaaaaaaaaaaaaaaaaaah
+        // I also could have stored an Object reference when I created the object and used List::contains but naaaaaaaaaaaaaaaaaaaaah
         Assert.assertEquals(1, NOTES_OF_TEST_LECTURE.stream().map(Note::getDescription).filter(d -> d.equals("note 1")).count());
         Assert.assertEquals(1, NOTES_OF_TEST_LECTURE.stream().map(Note::getDescription).filter(d -> d.equals("note 2")).count());
 
@@ -168,7 +166,7 @@ public class DatabaseTest {
         Assert.assertEquals(2, NOTES_OF_TEST_MODULE.size());
         // I'm also sorry for this, but generating a hash map of ID's (which will mess wiith the order of the created objects)
         // makes this the only sure-fire way to verify a certain element exists in the List
-        // I also could have stored an Object reference when I created the object but naaaaaaaaaaaaaaaaaaaaah
+        // I also could have stored an Object reference when I created the object and used List::contains but naaaaaaaaaaaaaaaaaaaaah
         Assert.assertEquals(1, NOTES_OF_TEST_MODULE.stream().map(Note::getDescription).filter(d -> d.equals("homework 1")).count());
         Assert.assertEquals(1, NOTES_OF_TEST_MODULE.stream().map(Note::getDescription).filter(d -> d.equals("homework 2")).count());
 

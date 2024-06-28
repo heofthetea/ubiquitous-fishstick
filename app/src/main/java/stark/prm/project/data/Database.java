@@ -3,6 +3,7 @@ package stark.prm.project.data;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class Database {
     private static Database instance;
@@ -19,7 +20,7 @@ public class Database {
     }
 
     public static Database getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new Database();
         }
         return instance;
@@ -30,9 +31,11 @@ public class Database {
     }
 
     //----------------------------------------------------------------------------------------------
+
     /**
      * Adds a note to the database.
      * Key for the {@link HashMap} is the {@link Note#getId()} of the note.
+     *
      * @param note note to add
      */
     public void add(Note note) {
@@ -42,6 +45,7 @@ public class Database {
     /**
      * Adds a lecture to the database.
      * Key for the {@link HashMap} is the {@link Lecture#getId()} of the lecture.
+     *
      * @param lecture lecture to add
      */
     public void add(Lecture lecture) {
@@ -51,6 +55,7 @@ public class Database {
     /**
      * Adds a module to the database.
      * Key for the {@link HashMap} is the {@link Module#getId()} of the module.
+     *
      * @param module module to add
      */
     public void add(Module module) {
@@ -90,6 +95,37 @@ public class Database {
     public Lecture update(Lecture lecture) {
         return lectures.replace(lecture.getId(), lecture);
     }
+
+
+    //TODO figure this out if I'm feeling masochistic at some time
+//    public Homework getHomeworkBy(AttributeOp aop, Object expected) {
+//        return (Homework) notes.values().stream().filter(m -> m instanceof Homework)
+//                .map(aop::getAttribute)
+//                .filter(m -> m.equals(expected))
+//                .findFirst()
+//                .orElse(null);
+//    }
+
+//    public interface AttributeOp {
+//        <T> T getAttribute(Object obj);
+//    }
+
+
+    public Module getModuleByName(String target) {
+        return (Module) modules.values().stream()
+                .filter(m -> m.getName().equals(target))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public Lecture getLectureByTopic(String target) {
+        return (Lecture) lectures.values().stream()
+                .filter(m -> m.getTopic().equals(target))
+                .findFirst()
+                .orElse(null);
+
+    }
+
 
     //----------------------------------------------------------------------------------------------
 
