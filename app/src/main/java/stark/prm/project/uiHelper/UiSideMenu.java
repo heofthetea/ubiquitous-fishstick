@@ -60,11 +60,11 @@ public class UiSideMenu extends AppCompatActivity implements NavigationView.OnNa
 
         if(itemID == R.id.nav_home && !currentLayout.equals("stark.prm.project.MainActivity")){
             context.startActivity(new Intent(context.getApplicationContext(), MainActivity.class));
-        } else if(itemID == R.id.nav_homework && !currentLayout.equals("stark.prm.project.Homework")){
+        } else if(itemID == R.id.nav_homework && !currentLayout.equals("stark.prm.project.HomeworkActivity")){
             context.startActivity(new Intent(context.getApplicationContext(), HomeworkActivity.class));
-        }else if(itemID == R.id.nav_notes && !currentLayout.equals("stark.prm.project.Notes")) {
+        }else if(itemID == R.id.nav_notes && !currentLayout.equals("stark.prm.project.NotesActivity")) {
             context.startActivity(new Intent(context.getApplicationContext(), NoteActivity.class));
-        }else if(itemID ==R.id.nav_progress && !currentLayout.equals("stark.prm.project.Progress")){
+        }else if(itemID ==R.id.nav_progress && !currentLayout.equals("stark.prm.project.ProgressActivity")){
             context.startActivity(new Intent(context.getApplicationContext(), ProgressActivity.class));
         }
         drawerLayout.closeDrawer(GravityCompat.START);
