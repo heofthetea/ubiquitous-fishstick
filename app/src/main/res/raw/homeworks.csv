@@ -1,0 +1,4 @@
+id,description,moduleID,pageNumber,progress,dueDate,lectureID
+"344a9a03-ede7-4534-8b2c-45f548c18736","Homework 2","e6dc3a75-fb63-4d22-8620-3508f24a6cf0","1","0.5","Sun Jun 30 17:44:00 CEST 2024","43cc3c77-5d76-4046-8782-e6e422bac6ec"
+"2a1149b0-e6d5-41d6-b01f-e8261c74bfca","Homework 1","e6dc3a75-fb63-4d22-8620-3508f24a6cf0","1","0.5","Sun Jun 30 17:44:00 CEST 2024",""
+"4dd9c530-e819-4fc0-a8e8-0310337b6b5d","Homework with 2 null references","","1","0.5","Sun Jun 30 17:44:00 CEST 2024",""

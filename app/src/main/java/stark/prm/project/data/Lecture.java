@@ -17,7 +17,7 @@ public class Lecture {
         this.id = UUID.randomUUID();
         if(module == null)
             throw new IllegalArgumentException("module cannot be null");
-        if(Database.getInstance().getLectureByTopic(topic) != null)
+        if(Database.getInstance().getLectureByTopic(topic) != null) // works only if we're comparing for equals and not contains
             throw new IllegalArgumentException("Lecture.topic must be unique");
 
         this.module = module;
