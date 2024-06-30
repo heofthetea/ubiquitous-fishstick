@@ -15,6 +15,18 @@ public class Note {
         this.lecture = lecture;
     }
 
+    /**
+     * !! This should only ever be used when loading the Database from files. Otherwise, have ids be generated!
+     * @param id
+     * @param description
+     * @param lecture
+     */
+    public Note(UUID id, String description, Lecture lecture) {
+        this.id = id;
+        this.description = description;
+        this.lecture = lecture;
+    }
+
 
 
     public UUID getId() {

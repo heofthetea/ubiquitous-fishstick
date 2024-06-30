@@ -15,7 +15,8 @@ public class CSVHandlerTest {
 
 
     /**
-     * I'm testing this using my terminal
+     * I'm testing this using my terminal lol
+     *
      * What should be returned:
      * cat lectures.csv: 3 entries
      * cat notes.csv: 2 entries
@@ -24,9 +25,9 @@ public class CSVHandlerTest {
      *
      */
     @Test
-    public void writeLectures() {
+    public void writeLecturesTest() {
         Database db = null;
-//        try {
+        try {
             db = Database.getInstance();
 
             Module tempModule = new Module("Module 1", "Dozent 1");
@@ -50,12 +51,39 @@ public class CSVHandlerTest {
 
             db.commit();
 
-//        } catch (Exception e) {
-//            Assert.fail(); // fail the test if any errors occur
-//        } finally {
-//            if (db != null)
-//                db.destroy();
-//        }
+            db.destroy();
+
+            //--------------------------------------------------------------------------------------------------------------------------
+            // Test the reading portion
+            db = Database.getInstance();
+            db.load();
+
+            Assert.assertEquals(3, db.getLectures().size());
+            Assert.assertEquals(1, db.getModules().size());
+            Assert.assertEquals(2 + 3, db.getNotes().size()); // need to account for merging of homeworks and notes
+
+            // Test if number of individual homeworks/notes matches
+            Assert.assertEquals(
+                    3,
+                    db.getNotes().values().stream()
+                            .filter(n -> n instanceof Homework)
+                            .count()
+            );
+            Assert.assertEquals(
+                    2,
+                    db.getNotes().values().stream()
+                            .filter(n -> !(n instanceof Homework))
+                            .count()
+            );
+
+        } catch (Exception e) {
+            Assert.fail(); // fail the test if any errors occur
+        } finally {
+            if (db != null)
+                db.destroy();
+        }
+
+
 
 
 

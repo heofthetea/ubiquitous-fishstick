@@ -24,6 +24,19 @@ public class Lecture {
         this.topic = topic;
     }
 
+    /**
+     * !! This should only ever be used when loading the Database from files. Otherwise, have ids be generated!
+     *
+     * @param id
+     * @param module
+     * @param topic
+     */
+    public Lecture(UUID id, Module module, String topic) {
+        this.id = id;
+        this.module = module;
+        this.topic = topic;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

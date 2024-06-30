@@ -20,6 +20,19 @@ public class Module {
     }
 
     /**
+     * !! This should only ever be used when loading the Database from files. Otherwise, have ids be generated!
+     *
+     * @param id
+     * @param name
+     * @param dozent
+     */
+    public Module(UUID id, String name, String dozent) {
+        this.id = id;
+        this.name = name;
+        this.dozent = dozent;
+    }
+
+    /**
      * Checks 2 modules for equality based on their id, name and dozent.
      *
      * @param o

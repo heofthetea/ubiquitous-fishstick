@@ -54,6 +54,22 @@ public class Database {
                 .collect(Collectors.toMap(Homework::getId, n -> n)));
     }
 
+    /**
+     * Reads database entries from their respective CSV files.
+     * <br>
+     * Note that the order in which we read them is important, as objects refer to one another.
+     * If e.g. Notes are read before Lectures, on creation they expect to find a {@link Lecture} object
+     * with the ID stored in the database, however when {@link Database#lectures} is empty, this will fail.
+     *<br>
+     * The correct order must be: Modules -> Lectures -> Notes -> Homeworks
+     */
+    public void load() {
+        modules = CSVHandler.readModules(this);
+        lectures = CSVHandler.readLectures(this);
+        notes = CSVHandler.readNotes(this);
+        notes.putAll(CSVHandler.readHomeworks(this));
+    }
+
     //----------------------------------------------------------------------------------------------
 
     /**
