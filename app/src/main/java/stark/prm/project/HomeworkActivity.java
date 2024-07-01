@@ -97,9 +97,7 @@ public class HomeworkActivity extends AppCompatActivity {
         }
 
         Module module = db.getModuleByName(spinner.getSelectedItem().toString());
-        if(module == null) {
-            throw new RuntimeException("selected Module doesn't exist");
-        }
+        if(module == null) throw new RuntimeException("selected Module doesn't exist");
 
         Lecture lecture = db.getLectureByTopic(topic);
         if(lecture == null) {
@@ -107,13 +105,12 @@ public class HomeworkActivity extends AppCompatActivity {
             db.add(lecture);
         }
 
-        Homework homework = new Homework(
+        db.add(new Homework(
                 editDesc.getText().toString(),
                 lecture,
                 Integer.parseInt(pageNum.getText().toString()),
                 seekBar.getProgress(),
                 date
-        );
-        db.add(homework);
+        ));
     }
 }
