@@ -1,7 +1,15 @@
 package stark.prm.project.data;
 
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
+import android.util.Log;
+import android.util.TypedValue;
+
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -31,8 +39,9 @@ public class CSVHandler {
      *
      * @param lectures Map of {@link Lecture} objects
      */
-    public static void writeLectures(HashMap<UUID, Lecture> lectures) {
-        try (PrintWriter writer = new PrintWriter(RAW_PATH + "lectures.csv")) {
+    public static void writeLectures(Context context, HashMap<UUID, Lecture> lectures) {
+
+        try (PrintWriter writer = new PrintWriter(new FileWriter(new File(context.getFilesDir(), "lectures.csv")))) {
             // Write the header line
             writer.println("id,topic,moduleID");
 
@@ -49,12 +58,12 @@ public class CSVHandler {
             }
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the CSV file.");
-            e.printStackTrace();
+            Log.d("CSVHandler", e.getMessage(), e);
         }
     }
 
-    public static void writeModules(HashMap<UUID, Module> modules) {
-        try (PrintWriter writer = new PrintWriter(RAW_PATH + "modules.csv")) {
+    public static void writeModules(Context context, HashMap<UUID, Module> modules) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(new File(context.getFilesDir(), "modules.csv")))) {
             // Write the header line
             writer.println("id,name,dozent");
 
@@ -73,12 +82,12 @@ public class CSVHandler {
             }
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the CSV file.");
-            e.printStackTrace();
+            Log.d("CSVHandler", e.getMessage(), e);
         }
     }
 
-    public static void writeNotes(Map<UUID, Note> notes) {
-        try (PrintWriter writer = new PrintWriter(RAW_PATH + "notes.csv")) {
+    public static void writeNotes(Context context, Map<UUID, Note> notes) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(new File(context.getFilesDir(), "notes.csv")))) {
             // Write the header line
             writer.println("id,description,lectureID");
 
@@ -98,12 +107,12 @@ public class CSVHandler {
             }
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the CSV file.");
-            e.printStackTrace();
+            Log.d("CSVHandler", e.getMessage(), e);
         }
     }
 
-    public static void writeHomeworks(Map<UUID, Homework> homeworks) {
-        try (PrintWriter writer = new PrintWriter(RAW_PATH + "homeworks.csv")) {
+    public static void writeHomeworks(Context context, Map<UUID, Homework> homeworks) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(new File(context.getFilesDir(), "homeworks.csv")))) {
             // Write the header line
             writer.println("id,description,moduleID,pageNumber,progress,dueDate,lectureID");
 
@@ -133,7 +142,7 @@ public class CSVHandler {
             }
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the CSV file.");
-            e.printStackTrace();
+            Log.d("CSVHandler", e.getMessage(), e);
         }
     }
 
@@ -141,12 +150,13 @@ public class CSVHandler {
     //READING from CSV
 
 
-    public static HashMap<UUID, Module> readModules(Database context) {
+    public static HashMap<UUID, Module> readModules(Context context, Database databaseContext) {
         HashMap<UUID, Module> modules = new HashMap<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(RAW_PATH + "modules.csv"))) {
+//        try (BufferedReader reader = new BufferedReader(new InputStreamReader(context.getResources().openRawResource(R.raw.modules)))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File(context.getFilesDir(), "modules.csv")))) {
             // Read the header line
-            String line = reader.readLine(); //TODO is header check necessary?
+            String line = reader.readLine(); // yeet the csv header line
 
             // While there are more lines in the CSV file
             while ((line = reader.readLine()) != null) {
@@ -166,21 +176,21 @@ public class CSVHandler {
             }
         } catch (IOException e) {
             System.out.println("An error occurred while reading from the CSV file.");
-            e.printStackTrace();
+            Log.d("CSVHandler", e.getMessage(), e);
         }
         return modules;
     }
 
     /**
-     * @param context A {@link Database} <i>Instance</i>, meaning the Database has to be created first
+     * @param databaseContext A {@link Database} <i>Instance</i>, meaning the Database has to be created first
      * @return
      */
-    public static HashMap<UUID, Lecture> readLectures(Database context) {
+    public static HashMap<UUID, Lecture> readLectures(Context context, Database databaseContext) {
         HashMap<UUID, Lecture> lectures = new HashMap<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(RAW_PATH + "lectures.csv"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File(context.getFilesDir(), "lectures.csv")))) {
             // Read the header line
-            String line = reader.readLine(); //TODO is header check necessary?
+            String line = reader.readLine();
 
             // While there are more lines in the CSV file
             while ((line = reader.readLine()) != null) {
@@ -188,7 +198,7 @@ public class CSVHandler {
                 String[] data = line.split("\",\"");
 
                 // compare against the required length of a UUID string
-                Module module = (data[2].length() < 36) ? null : context.getModules().get(UUID.fromString(data[2].substring(0, data[2].length() - 1)));
+                Module module = (data[2].length() < 36) ? null : databaseContext.getModules().get(UUID.fromString(data[2].substring(0, data[2].length() - 1)));
 
                 // Create a new Lecture object
                 // The first character of data[0] and the last of data[-1] are quotes from the csv file creation, meaning those have to be removed using substring()
@@ -199,25 +209,24 @@ public class CSVHandler {
             }
         } catch (IOException e) {
             System.out.println("An error occurred while reading from the CSV file.");
-            e.printStackTrace();
+            Log.d("CSVHandler", e.getMessage(), e);
         }
 
         return lectures;
     }
 
-    public static HashMap<UUID, Note> readNotes(Database context) {
+    public static HashMap<UUID, Note> readNotes(Context context, Database databaseContext) {
         HashMap<UUID, Note> notes = new HashMap<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(RAW_PATH + "notes.csv"))) {
-            // Read the header line
-            String line = reader.readLine(); //TODO is header check necessary?
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File(context.getFilesDir(), "notes.csv")))) {
+            String line = reader.readLine(); // read the header line
 
             // While there are more lines in the CSV file
             while ((line = reader.readLine()) != null) {
                 // Split the line into an array of strings
                 String[] data = line.split("\",\"");
                 // make lecture null if it is an empty string
-                Lecture lecture = (data[2].length() < 36) ? null : context.getLectures().get(UUID.fromString(data[2].substring(0, data[2].length() - 1)));
+                Lecture lecture = (data[2].length() < 36) ? null : databaseContext.getLectures().get(UUID.fromString(data[2].substring(0, data[2].length() - 1)));
 
                 // Create a new Note object
                 // The first character of data[0] and the last of data[-1] are quotes from the csv file creation, meaning those have to be removed using substring()
@@ -228,17 +237,17 @@ public class CSVHandler {
             }
         } catch (IOException e) {
             System.out.println("An error occurred while reading from the CSV file.");
-            e.printStackTrace();
+            Log.d("CSVHandler", e.getMessage(), e);
         }
         return notes;
     }
 
-    public static HashMap<UUID, Homework> readHomeworks(Database context) {
+    public static HashMap<UUID, Homework> readHomeworks(Context context, Database databaseContext) {
         HashMap<UUID, Homework> homeworks = new HashMap<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(RAW_PATH + "homeworks.csv"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File(context.getFilesDir(), "homeworks.csv")))) {
             // Read the header line
-            String line = reader.readLine(); //TODO is header check necessary?
+            String line = reader.readLine();
 
             SimpleDateFormat theFuckingFormatter = new SimpleDateFormat(DATE_PATTERN);
 
@@ -249,8 +258,8 @@ public class CSVHandler {
                 String[] data = line.split("\",\"");
 
                 // need to check against 1, not 0, because it will contain
-                Module module = (data[2].length() < 36) ? null : context.getModules().get(UUID.fromString(data[2]));
-                Lecture lecture = (data[6].length() < 36) ? null: context.getLectures().get(UUID.fromString(data[6].substring(0, data[6].length() - 1)));
+                Module module = (data[2].length() < 36) ? null : databaseContext.getModules().get(UUID.fromString(data[2]));
+                Lecture lecture = (data[6].length() < 36) ? null: databaseContext.getLectures().get(UUID.fromString(data[6].substring(0, data[6].length() - 1)));
 
                 // Create a new Homework object
                 // The first character of data[0] and the last of data[-1] are quotes from the csv file creation, meaning those have to be removed using substring()
@@ -269,7 +278,7 @@ public class CSVHandler {
             }
         } catch (IOException e) {
             System.out.println("An error occurred while reading from the CSV file.");
-            e.printStackTrace();
+            Log.d("CSVHandler", e.getMessage(), e);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }

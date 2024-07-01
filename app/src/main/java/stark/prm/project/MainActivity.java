@@ -30,10 +30,8 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        Database.getInstance().init(this); // populate the Database with some Modules
 
-        Database.getInstance().add(
-                new Module("PRM", "Wolfgang Stark")
-        );
         //TODO code restart of App when run in Error
         //Temporarily call the HomeworkActivity directly on Startup
         try {
