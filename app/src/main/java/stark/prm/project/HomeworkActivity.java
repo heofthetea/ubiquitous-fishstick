@@ -1,5 +1,6 @@
 package stark.prm.project;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -130,5 +131,6 @@ public class HomeworkActivity extends AppCompatActivity {
 
         db.commit(this);
 
+        this.startActivity(new Intent(this.getApplicationContext(), HomeworkListActivity.class));
     }
 }
