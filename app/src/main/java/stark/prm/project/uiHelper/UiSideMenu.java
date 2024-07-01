@@ -16,7 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
 
-import stark.prm.project.HomeworkActivity;
+import stark.prm.project.HomeworkListActivity;
 import stark.prm.project.MainActivity;
 import stark.prm.project.NoteActivity;
 import stark.prm.project.ProgressActivity;
@@ -60,8 +60,8 @@ public class UiSideMenu extends AppCompatActivity implements NavigationView.OnNa
 
         if(itemID == R.id.nav_home && !currentLayout.equals("stark.prm.project.MainActivity")){
             context.startActivity(new Intent(context.getApplicationContext(), MainActivity.class));
-        } else if(itemID == R.id.nav_homework && !currentLayout.equals("stark.prm.project.HomeworkActivity")){
-            context.startActivity(new Intent(context.getApplicationContext(), HomeworkActivity.class));
+        } else if(itemID == R.id.nav_homework && !currentLayout.equals("stark.prm.project.HomeworkListActivity")){
+            context.startActivity(new Intent(context.getApplicationContext(), HomeworkListActivity.class));
         }else if(itemID == R.id.nav_notes && !currentLayout.equals("stark.prm.project.NotesActivity")) {
             context.startActivity(new Intent(context.getApplicationContext(), NoteActivity.class));
         }else if(itemID ==R.id.nav_progress && !currentLayout.equals("stark.prm.project.ProgressActivity")){
