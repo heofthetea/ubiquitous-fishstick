@@ -129,7 +129,7 @@ public class CSVHandler {
                         "\",\"" +
                         ((homework.getModule() != null) ? homework.getModule().getId().toString() : "") +
                         "\",\"" +
-                        homework.getPageNumber() +
+                        ((homework.getPageNumber() != null) ? homework.getPageNumber() : "") +
                         "\",\"" +
                         homework.getProgress() +
                         "\",\"" +
@@ -267,7 +267,7 @@ public class CSVHandler {
                         UUID.fromString(data[0].substring(1)),
                         data[1],
                         lecture,
-                        Integer.parseInt(data[3]),
+                        (data[3].isEmpty()) ? null : Integer.parseInt(data[3]),
                         Double.parseDouble(data[4]),
                         theFuckingFormatter.parse(data[5]),
                         module
