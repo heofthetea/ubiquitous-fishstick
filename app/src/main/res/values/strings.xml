@@ -7,6 +7,7 @@
     <string name="headerHomework">Hausaufgaben hinzufügen</string>
     <string name="headerNote">Notiz hinzufügen</string>
     <string name="headerMain">DHBW Verwaltung</string>
+    <string name="headerProgress">Lernfortschritt</string>
 
     <string name="text_progress">Fortschritt:</string>
     <string name="text_title">Titel</string>
