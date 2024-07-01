@@ -9,9 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.Date;
 
-import stark.prm.project.R;
 
 public class CSVHandler {
     /**
@@ -194,7 +192,7 @@ public class CSVHandler {
 
                 // Create a new Lecture object
                 // The first character of data[0] and the last of data[-1] are quotes from the csv file creation, meaning those have to be removed using substring()
-                Lecture lecture = new Lecture(UUID.fromString(data[0].substring(1)), module, data[1].substring(0, data[1].length() - 1));
+                Lecture lecture = new Lecture(UUID.fromString(data[0].substring(1)), module, data[1]);
 
                 // Add the Lecture object to the lectures map
                 lectures.put(lecture.getId(), lecture);
@@ -251,7 +249,7 @@ public class CSVHandler {
                 String[] data = line.split("\",\"");
 
                 // need to check against 1, not 0, because it will contain
-                Module module = (data[2].length() < 36) ? null : context.getModules().get(UUID.fromString(data[2].substring(0, data[2].length() - 1)));
+                Module module = (data[2].length() < 36) ? null : context.getModules().get(UUID.fromString(data[2]));
                 Lecture lecture = (data[6].length() < 36) ? null: context.getLectures().get(UUID.fromString(data[6].substring(0, data[6].length() - 1)));
 
                 // Create a new Homework object
