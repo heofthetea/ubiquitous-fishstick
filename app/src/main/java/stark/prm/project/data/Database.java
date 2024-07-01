@@ -2,6 +2,7 @@ package stark.prm.project.data;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -28,6 +29,45 @@ public class Database {
 
     public void destroy() {
         instance = null;
+    }
+
+
+    /**
+     * Writes the current content of the HashMaps to a csv file.
+     * Call this whenever you are done adding/changing data and continue to another state in your application.
+     * <p>
+     * uses {@link CSVHandler}.
+     */
+    public void commit() {
+        CSVHandler.writeLectures(lectures);
+        CSVHandler.writeModules(modules);
+
+        // Filter out Homeworks from the notes Map and write them separately, as in this specific use case it outright won't work treating them the same.
+        CSVHandler.writeNotes(notes.values()
+                .stream()
+                .filter(n -> !(n instanceof Homework))
+                .collect(Collectors.toMap(Note::getId, n -> n)));
+
+        CSVHandler.writeHomeworks(notes.values().stream()
+                .filter(n -> n instanceof Homework)
+                .map(n -> (Homework) n)
+                .collect(Collectors.toMap(Homework::getId, n -> n)));
+    }
+
+    /**
+     * Reads database entries from their respective CSV files.
+     * <br>
+     * Note that the order in which we read them is important, as objects refer to one another.
+     * If e.g. Notes are read before Lectures, on creation they expect to find a {@link Lecture} object
+     * with the ID stored in the database, however when {@link Database#lectures} is empty, this will fail.
+     *<br>
+     * The correct order must be: Modules -> Lectures -> Notes -> Homeworks
+     */
+    public void load() {
+        modules = CSVHandler.readModules(this);
+        lectures = CSVHandler.readLectures(this);
+        notes = CSVHandler.readNotes(this);
+        notes.putAll(CSVHandler.readHomeworks(this));
     }
 
     //----------------------------------------------------------------------------------------------
@@ -113,14 +153,14 @@ public class Database {
 
     public Module getModuleByName(String target) {
         return (Module) modules.values().stream()
-                .filter(m -> m.getName().contains(target))
+                .filter(m -> m.getName().equals(target))
                 .findFirst()
                 .orElse(null);
     }
 
     public Lecture getLectureByTopic(String target) {
         return (Lecture) lectures.values().stream()
-                .filter(m -> m.getTopic().contains(target))
+                .filter(m -> m.getTopic().equals(target))
                 .findFirst()
                 .orElse(null);
 

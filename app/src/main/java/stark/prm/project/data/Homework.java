@@ -1,6 +1,7 @@
 package stark.prm.project.data;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class Homework extends Note {
 
@@ -33,12 +34,28 @@ public class Homework extends Note {
         this.pageNumber = pageNumber;
         this.progress = progress;
         this.dueDate = dueDate;
-        if (lecture == null)
-            throw new IllegalArgumentException("lecture cannot be null");
+        if (lecture == null) throw new IllegalArgumentException("lecture cannot be null");
         this.module = lecture.getModule();
     }
 
-
+    /**
+     * !! This should only ever be used when loading the Database from files. Otherwise, have ids be generated!
+     *
+     * @param id
+     * @param description
+     * @param lecture
+     * @param pageNumber
+     * @param progress
+     * @param dueDate
+     * @param module
+     */
+    public Homework(UUID id, String description, Lecture lecture, int pageNumber, double progress, Date dueDate, Module module) {
+        super(id, description, lecture);
+        this.pageNumber = pageNumber;
+        this.progress = progress;
+        this.dueDate = dueDate;
+        this.module = module;
+    }
 
     //----------------------------------------------------------------------------------------------
 
@@ -48,8 +65,8 @@ public class Homework extends Note {
     }
 
     public void setModule(Module module) {
-        if(this.getLecture() != null) {
-            if(!this.getLecture().getModule().equals(module))
+        if (this.getLecture() != null) {
+            if (!this.getLecture().getModule().equals(module))
                 throw new IllegalArgumentException("provided module does not match module of lecture");
         }
         this.module = module;

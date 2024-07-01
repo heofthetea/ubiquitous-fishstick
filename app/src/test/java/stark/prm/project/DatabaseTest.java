@@ -184,6 +184,9 @@ public class DatabaseTest {
         db.add(new Module("name", "dozent"));
         db.add(new Module("another name", "dozent"));
 
+        Module mod = db.getModuleByName("name");
+        Assert.assertNotNull(mod);
+        Assert.assertEquals("dozent", mod.getDozent());
 
         db.destroy();
     }
