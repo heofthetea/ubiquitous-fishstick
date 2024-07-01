@@ -7,11 +7,13 @@
     <string name="headerHomework">Hausaufgaben hinzufügen</string>
     <string name="headerNote">Notiz hinzufügen</string>
     <string name="headerMain">DHBW Verwaltung</string>
+    <string name="headerHWL">Hausaufgaben</string>
 
     <string name="text_progress">Fortschritt:</string>
     <string name="text_title">Titel</string>
     <string name="text_page_num">Seite Nr.</string>
     <string name="text_add">Hinzufügen</string>
+    <string name="text_add_new">Neu hinzufügen</string>
     <string name="text_description">Beschreibung</string>
     <string name="text_date">Datum</string>
     <string name="text_module">Modul</string>
