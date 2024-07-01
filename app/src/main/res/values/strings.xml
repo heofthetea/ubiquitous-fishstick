@@ -5,6 +5,8 @@
     <string name="close_nav_drawer">Close Navigation Drawer</string>
 
     <string name="headerHomework">Hausaufgaben hinzufügen</string>
+    <string name="headerNote">Notiz hinzufügen</string>
+    <string name="headerMain">DHBW Verwaltung</string>
 
     <string name="text_progress">Fortschritt:</string>
     <string name="text_title">Titel</string>
@@ -12,8 +14,8 @@
     <string name="text_add">Hinzufügen</string>
     <string name="text_description">Beschreibung</string>
     <string name="text_date">Datum</string>
-    <string name="text_lecture">Vorlesung</string>
-    <string name="text_new_lecture">Vorlesung</string>
+    <string name="text_module">Modul</string>
+
 
     <string name="header_text">DHBW-Verwaltung</string>
     <string name="nav_home">Startseite</string>
