@@ -49,7 +49,7 @@ public class HomeworkActivity extends AppCompatActivity {
         handleButton();
     }
 
-    private void setUpUiElements(){
+    private void setUpUiElements() {
         //Initial setup of Spinner Elements
         Spinner modules = findViewById(R.id.homework_spinner_module);
         modules.setAdapter(new UiSpinner(this).createSpinnerElements());
@@ -67,19 +67,19 @@ public class HomeworkActivity extends AppCompatActivity {
         uiDatePicker.handleDatePicker(findViewById(R.id.homework_edit_text_due_date), this);
 
         //Initial setup of SideBar-Navigation-Menu
-        UiSideMenu uiSideMenu = new UiSideMenu(this,findViewById(R.id.homework_drawer_layout));
+        UiSideMenu uiSideMenu = new UiSideMenu(this, findViewById(R.id.homework_drawer_layout));
         Toolbar toolbar = findViewById(R.id.homework_toolbar);
         setSupportActionBar(toolbar);
-        uiSideMenu.handleSideMenu(findViewById(R.id.nav_homework_view),toolbar, getSupportActionBar());
+        uiSideMenu.handleSideMenu(findViewById(R.id.nav_homework_view), toolbar, getSupportActionBar());
     }
 
-    private void handleButton(){
+    private void handleButton() {
         Button buttonAdd = findViewById(R.id.btn_add_homework);
         buttonAdd.setOnClickListener(view -> addHomework());
     }
 
     private void addHomework() {
-        Spinner spinner =  findViewById(R.id.homework_spinner_module);
+        Spinner spinner = findViewById(R.id.homework_spinner_module);
         EditText editLecture = findViewById(R.id.homework_edit_text_lecture);
         String topic = editLecture.getText().toString();
         EditText dueDate = findViewById(R.id.homework_edit_text_due_date);
@@ -97,20 +97,33 @@ public class HomeworkActivity extends AppCompatActivity {
         }
 
         Module module = db.getModuleByName(spinner.getSelectedItem().toString());
-        if(module == null) throw new RuntimeException("selected Module doesn't exist");
+        if (module == null) throw new RuntimeException("selected Module doesn't exist");
 
         Lecture lecture = db.getLectureByTopic(topic);
-        if(lecture == null) {
+        if (lecture == null) {
             lecture = new Lecture(module, topic);
             db.add(lecture);
         }
 
-        db.add(new Homework(
+        Integer pageNumIntegerCastedYouBozo = (pageNum.getText().length() == 0) ? null : Integer.parseInt(pageNum.getText().toString());
+        Double progress = (double) seekBar.getProgress() / 10;
+
+        Homework newHomework = new Homework(
                 editDesc.getText().toString(),
                 lecture,
-                Integer.parseInt(pageNum.getText().toString()),
-                seekBar.getProgress(),
+                pageNumIntegerCastedYouBozo,
+                progress,
                 date
-        ));
+        );
+
+        if (db.getNotes().values().stream()
+                .filter(n -> n instanceof Homework)
+                .noneMatch(h -> h.equals(newHomework))
+        ) {
+            db.add(newHomework);
+        }
+
+        db.commit(this);
+
     }
 }
