@@ -27,14 +27,14 @@ public class CSVHandlerTest {
     @Test
     public void writeLecturesTest() {
         Database db = null;
-        try {
             db = Database.getInstance();
 
             Module tempModule = new Module("Module 1", "Dozent 1");
-            db.add(tempModule);
             Lecture tempLecture = new Lecture(tempModule, "Lecture 1");
-            db.add(tempLecture);
 
+        try {
+            db.add(tempModule);
+            db.add(tempLecture);
             db.add(new Lecture(tempModule, "Lecture 2"));
             db.add(new Lecture(tempModule, "Lecture 3"));
             db.commit();
@@ -53,6 +53,9 @@ public class CSVHandlerTest {
 
             db.destroy();
 
+        } catch (Exception e) {
+            Assert.fail(); // fail the test if any errors occur
+        }
             //--------------------------------------------------------------------------------------------------------------------------
             // Test the reading portion
             db = Database.getInstance();
@@ -60,6 +63,7 @@ public class CSVHandlerTest {
 
             Assert.assertEquals(3, db.getLectures().size());
             Assert.assertEquals(1, db.getModules().size());
+            Assert.assertNotNull(db.getLectureByTopic("Lecture 1"));
             Assert.assertEquals(2 + 3, db.getNotes().size()); // need to account for merging of homeworks and notes
 
             // Test if number of individual homeworks/notes matches
@@ -76,16 +80,19 @@ public class CSVHandlerTest {
                             .count()
             );
 
-        } catch (Exception e) {
-            Assert.fail(); // fail the test if any errors occur
-        } finally {
-            if (db != null)
-                db.destroy();
-        }
+            Assert.assertEquals("Dozent 1", db.getModuleByName("Module 1").getDozent());
 
+            Assert.assertEquals("Lecture 1",
+                    db.getNotes().values().stream()
+                            .filter(n -> n.getLecture() != null)
+                            .filter(n -> n.getLecture().getId().equals(tempLecture.getId()))
+                            .findFirst()
+                            .get() // yes shut up this is a unit test if it is not present something else went wrong
+                            .getLecture().getTopic()
+            );
 
-
-
+            db.destroy();
+            
 
     }
 }
