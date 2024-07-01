@@ -9,6 +9,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
@@ -25,6 +26,7 @@ import stark.prm.project.data.Database;
 import stark.prm.project.data.Homework;
 import stark.prm.project.data.Lecture;
 import stark.prm.project.data.Module;
+import stark.prm.project.uiHelper.UiCheckError;
 import stark.prm.project.uiHelper.UiDatePicker;
 import stark.prm.project.uiHelper.UiSeekBar;
 import stark.prm.project.uiHelper.UiSideMenu;
@@ -80,6 +82,7 @@ public class HomeworkActivity extends AppCompatActivity {
 
     private void addHomework() {
         Spinner spinner = findViewById(R.id.homework_spinner_module);
+
         EditText editLecture = findViewById(R.id.homework_edit_text_lecture);
         String topic = editLecture.getText().toString();
         EditText dueDate = findViewById(R.id.homework_edit_text_due_date);
@@ -88,12 +91,14 @@ public class HomeworkActivity extends AppCompatActivity {
         SeekBar seekBar = findViewById(R.id.homework_seek_bar_progress);
         Database db = Database.getInstance();
 
+        if(UiCheckError.checkHomeworkElmenents(editLecture,dueDate,editDesc)) return;
+
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY);
         Date date = new Date();
         try {
             date = formatter.parse(dueDate.getText().toString());
         } catch (ParseException ignore) {
-            Toast.makeText(this, "Error bei Datum", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Error bei Datum", Toast.LENGTH_SHORT).show();
         }
 
         Module module = db.getModuleByName(spinner.getSelectedItem().toString());

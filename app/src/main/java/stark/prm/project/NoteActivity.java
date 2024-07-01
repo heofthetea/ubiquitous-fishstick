@@ -17,6 +17,7 @@ import stark.prm.project.data.Homework;
 import stark.prm.project.data.Lecture;
 import stark.prm.project.data.Module;
 import stark.prm.project.data.Note;
+import stark.prm.project.uiHelper.UiCheckError;
 import stark.prm.project.uiHelper.UiSideMenu;
 import stark.prm.project.uiHelper.UiSpinner;
 
@@ -59,6 +60,8 @@ public class NoteActivity extends AppCompatActivity {
         String topic = editLecture.getText().toString();
         EditText editDesc = findViewById(R.id.note_edit_text_description);
         Database db = Database.getInstance();
+
+        if(UiCheckError.checkNoteElmenents(editLecture,editDesc)) return;
 
         //Get Object of the Module selected by the user
         Module module = db.getModuleByName(spinner.getSelectedItem().toString());
