@@ -13,9 +13,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import stark.prm.project.data.Database;
+import stark.prm.project.data.Homework;
 import stark.prm.project.data.Lecture;
 import stark.prm.project.data.Module;
 import stark.prm.project.data.Note;
+import stark.prm.project.uiHelper.UiCheckError;
 import stark.prm.project.uiHelper.UiSideMenu;
 import stark.prm.project.uiHelper.UiSpinner;
 
@@ -35,44 +37,58 @@ public class NoteActivity extends AppCompatActivity {
         handleButton();
     }
 
-    private void setUpUiElements(){
+    private void setUpUiElements() {
         //Initial setup of Spinner Elements
         Spinner modules = findViewById(R.id.note_spinner_module);
         modules.setAdapter(new UiSpinner(this).createSpinnerElements());
 
         //Initial setup of SideBar-Navigation-Menu
-        UiSideMenu uiSideMenu = new UiSideMenu(this,findViewById(R.id.note_drawer_layout));
+        UiSideMenu uiSideMenu = new UiSideMenu(this, findViewById(R.id.note_drawer_layout));
         Toolbar toolbar = findViewById(R.id.note_toolbar);
         setSupportActionBar(toolbar);
-        uiSideMenu.handleSideMenu(findViewById(R.id.nav_notes_view),toolbar, getSupportActionBar());
+        uiSideMenu.handleSideMenu(findViewById(R.id.nav_notes_view), toolbar, getSupportActionBar());
     }
 
-    private void handleButton(){
+    private void handleButton() {
         Button buttonAdd = findViewById(R.id.btn_add_note);
         buttonAdd.setOnClickListener(view -> addNote());
     }
 
     private void addNote() {
-        Spinner spinner =  findViewById(R.id.note_spinner_module);
+        Spinner spinner = findViewById(R.id.note_spinner_module);
         EditText editLecture = findViewById(R.id.note_edit_text_lecture);
         String topic = editLecture.getText().toString();
         EditText editDesc = findViewById(R.id.note_edit_text_description);
         Database db = Database.getInstance();
 
+        if(UiCheckError.checkNoteElmenents(editLecture,editDesc)) return;
+
         //Get Object of the Module selected by the user
         Module module = db.getModuleByName(spinner.getSelectedItem().toString());
-        if(module == null) throw new RuntimeException("selected Module doesn't exist");
+        if (module == null) throw new RuntimeException("selected Module doesn't exist");
 
         //Get Object for the Lecture if existent, otherwise create a new Lecture object
         Lecture lecture = db.getLectureByTopic(topic);
-        if(lecture == null) {
+        if (lecture == null) {
             lecture = new Lecture(module, topic);
             db.add(lecture);
         }
 
-        db.add(new Note(
+
+        Note newNote = new Note(
                 editDesc.getText().toString(),
                 lecture
-        ));
+        );
+
+        if (db.getNotes().values().stream()
+                .filter(n -> !(n instanceof Homework))
+                .noneMatch(n -> n.equals(newNote))
+        ) {
+            db.add(newNote);
+        }
+
+        db.commit(this);
+
+
     }
 }

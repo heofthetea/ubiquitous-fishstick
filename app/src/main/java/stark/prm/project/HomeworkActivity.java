@@ -1,5 +1,6 @@
 package stark.prm.project;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -9,6 +10,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
@@ -25,6 +27,7 @@ import stark.prm.project.data.Database;
 import stark.prm.project.data.Homework;
 import stark.prm.project.data.Lecture;
 import stark.prm.project.data.Module;
+import stark.prm.project.uiHelper.UiCheckError;
 import stark.prm.project.uiHelper.UiDatePicker;
 import stark.prm.project.uiHelper.UiSeekBar;
 import stark.prm.project.uiHelper.UiSideMenu;
@@ -49,7 +52,7 @@ public class HomeworkActivity extends AppCompatActivity {
         handleButton();
     }
 
-    private void setUpUiElements(){
+    private void setUpUiElements() {
         //Initial setup of Spinner Elements
         Spinner modules = findViewById(R.id.homework_spinner_module);
         modules.setAdapter(new UiSpinner(this).createSpinnerElements());
@@ -67,19 +70,20 @@ public class HomeworkActivity extends AppCompatActivity {
         uiDatePicker.handleDatePicker(findViewById(R.id.homework_edit_text_due_date), this);
 
         //Initial setup of SideBar-Navigation-Menu
-        UiSideMenu uiSideMenu = new UiSideMenu(this,findViewById(R.id.homework_drawer_layout));
+        UiSideMenu uiSideMenu = new UiSideMenu(this, findViewById(R.id.homework_drawer_layout));
         Toolbar toolbar = findViewById(R.id.homework_toolbar);
         setSupportActionBar(toolbar);
-        uiSideMenu.handleSideMenu(findViewById(R.id.nav_homework_view),toolbar, getSupportActionBar());
+        uiSideMenu.handleSideMenu(findViewById(R.id.nav_homework_view), toolbar, getSupportActionBar());
     }
 
-    private void handleButton(){
+    private void handleButton() {
         Button buttonAdd = findViewById(R.id.btn_add_homework);
         buttonAdd.setOnClickListener(view -> addHomework());
     }
 
     private void addHomework() {
-        Spinner spinner =  findViewById(R.id.homework_spinner_module);
+        Spinner spinner = findViewById(R.id.homework_spinner_module);
+
         EditText editLecture = findViewById(R.id.homework_edit_text_lecture);
         String topic = editLecture.getText().toString();
         EditText dueDate = findViewById(R.id.homework_edit_text_due_date);
@@ -88,29 +92,45 @@ public class HomeworkActivity extends AppCompatActivity {
         SeekBar seekBar = findViewById(R.id.homework_seek_bar_progress);
         Database db = Database.getInstance();
 
+        if(UiCheckError.checkHomeworkElmenents(editLecture,dueDate,editDesc)) return;
+
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY);
         Date date = new Date();
         try {
             date = formatter.parse(dueDate.getText().toString());
         } catch (ParseException ignore) {
-            Toast.makeText(this, "Error bei Datum", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Error bei Datum", Toast.LENGTH_SHORT).show();
         }
 
         Module module = db.getModuleByName(spinner.getSelectedItem().toString());
-        if(module == null) throw new RuntimeException("selected Module doesn't exist");
+        if (module == null) throw new RuntimeException("selected Module doesn't exist");
 
         Lecture lecture = db.getLectureByTopic(topic);
-        if(lecture == null) {
+        if (lecture == null) {
             lecture = new Lecture(module, topic);
             db.add(lecture);
         }
 
-        db.add(new Homework(
+        Integer pageNumIntegerCastedYouBozo = (pageNum.getText().length() == 0) ? null : Integer.parseInt(pageNum.getText().toString());
+        Double progress = (double) seekBar.getProgress() / 10;
+
+        Homework newHomework = new Homework(
                 editDesc.getText().toString(),
                 lecture,
-                Integer.parseInt(pageNum.getText().toString()),
-                seekBar.getProgress(),
+                pageNumIntegerCastedYouBozo,
+                progress,
                 date
-        ));
+        );
+
+        if (db.getNotes().values().stream()
+                .filter(n -> n instanceof Homework)
+                .noneMatch(h -> h.equals(newHomework))
+        ) {
+            db.add(newHomework);
+        }
+
+        db.commit(this);
+
+        this.startActivity(new Intent(this.getApplicationContext(), HomeworkListActivity.class));
     }
 }
