@@ -16,6 +16,7 @@ import stark.prm.project.data.Module;
 import stark.prm.project.uiHelper.UiSideMenu;
 
 
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -39,14 +40,37 @@ public class MainActivity extends AppCompatActivity {
             //this.startActivity(new Intent(MainActivity.this, HomeworkActivity.class));
 
             //Initial setup of SideBar-Navigation-Menu
-            UiSideMenu uiSideMenu = new UiSideMenu(this,findViewById(R.id.main));
+            UiSideMenu uiSideMenu = new UiSideMenu(this, findViewById(R.id.main));
             Toolbar toolbar = findViewById(R.id.main_toolbar);
             setSupportActionBar(toolbar);
-            uiSideMenu.handleSideMenu(findViewById(R.id.nav_main_view),toolbar, getSupportActionBar());
+            uiSideMenu.handleSideMenu(findViewById(R.id.nav_main_view), toolbar, getSupportActionBar());
 
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             //restart();
         }
+
+        buttonClick();
     }
+
+
+    private void buttonClick() {
+        Button buttonHomework = findViewById(R.id.btn_Homework);
+        buttonHomework.setClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, HomeworkActivity.class);
+        });
+
+        Button buttonNotes = findViewById(R.id.btn_Notes);
+        buttonHomework.setClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, NoteActivity.class);
+        });
+
+        Button buttonProgress = findViewById(R.id.btn_progress);
+        buttonHomework.setClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, ProgressActivity.class);
+        });
+
+
+    }
+
 }

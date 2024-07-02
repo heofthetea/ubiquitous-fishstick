@@ -61,7 +61,8 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/icon_next" />
+                android:drawableEnd="@drawable/icon_next"
+                android:id="@id/btn_homework"/>
 
         </LinearLayout>
 
@@ -86,6 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/icon_next"
+                android:id="@id/btn_notes"
                  />
         </LinearLayout>
 
@@ -110,6 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/icon_next"
+                android:id="@id/btn_progress"
                  />
         </LinearLayout>
     </LinearLayout>
