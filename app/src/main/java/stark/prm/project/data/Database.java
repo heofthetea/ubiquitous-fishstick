@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import android.content.Context;
 
 public class Database {
     private static Database instance;
@@ -31,6 +32,26 @@ public class Database {
         instance = null;
     }
 
+    /**
+     * Initialize the Database with mockup Modules.
+     * Any further Data will have to either be added via the app or put here, in <i>its own</i> if-statement.
+     *
+     * <em>Can only be called on a {@link Database} object, not the Class!!!</em>
+     *
+     *
+     * @param context
+     */
+    public void init(Context context) {
+        this.load(context);
+        if(modules.size() < 3) {
+            modules.clear();
+            this.add(new Module("PRM", "Wolfgang Stark"));
+            this.add(new Module("Web Engineering", "Ivan Bogicevic"));
+            this.add(new Module("Analysis", "Jürgen Hellmich"));
+            this.commit(context); // write mockup data to files, so that we save overhead
+        }
+    }
+
 
     /**
      * Writes the current content of the HashMaps to a csv file.
@@ -38,17 +59,17 @@ public class Database {
      * <p>
      * uses {@link CSVHandler}.
      */
-    public void commit() {
-        CSVHandler.writeLectures(lectures);
-        CSVHandler.writeModules(modules);
+    public void commit(Context context) {
+        CSVHandler.writeLectures(context, lectures);
+        CSVHandler.writeModules(context, modules);
 
         // Filter out Homeworks from the notes Map and write them separately, as in this specific use case it outright won't work treating them the same.
-        CSVHandler.writeNotes(notes.values()
+        CSVHandler.writeNotes(context, notes.values()
                 .stream()
                 .filter(n -> !(n instanceof Homework))
                 .collect(Collectors.toMap(Note::getId, n -> n)));
 
-        CSVHandler.writeHomeworks(notes.values().stream()
+        CSVHandler.writeHomeworks(context, notes.values().stream()
                 .filter(n -> n instanceof Homework)
                 .map(n -> (Homework) n)
                 .collect(Collectors.toMap(Homework::getId, n -> n)));
@@ -63,11 +84,11 @@ public class Database {
      *<br>
      * The correct order must be: Modules -> Lectures -> Notes -> Homeworks
      */
-    public void load() {
-        modules = CSVHandler.readModules(this);
-        lectures = CSVHandler.readLectures(this);
-        notes = CSVHandler.readNotes(this);
-        notes.putAll(CSVHandler.readHomeworks(this));
+    public void load(Context context) {
+        modules = CSVHandler.readModules(context, this);
+        lectures = CSVHandler.readLectures(context, this);
+        notes = CSVHandler.readNotes(context, this);
+        notes.putAll(CSVHandler.readHomeworks(context, this));
     }
 
     //----------------------------------------------------------------------------------------------

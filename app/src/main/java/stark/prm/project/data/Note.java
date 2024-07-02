@@ -4,9 +4,9 @@ import java.util.UUID;
 import java.lang.IllegalArgumentException;
 
 public class Note {
-    private final UUID id;
-    private String description;
-    private Lecture lecture;
+    protected final UUID id;
+    protected String description;
+    protected Lecture lecture;
 
 
     public Note(String description, Lecture lecture) {
