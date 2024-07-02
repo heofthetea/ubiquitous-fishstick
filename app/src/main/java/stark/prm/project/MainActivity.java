@@ -15,6 +15,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -23,6 +24,7 @@ import stark.prm.project.Notifications.NotificationHelper;
 import stark.prm.project.data.Database;
 import stark.prm.project.data.Module;
 import stark.prm.project.uiHelper.UiSideMenu;
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -60,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!hasExactAlarmPermission()) {
                     ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SCHEDULE_EXACT_ALARM}, REQUEST_CODE_SCHEDULE_EXACT_ALARM);
                 } else {
-                    notificationHelper.scheduleNotification("Dies ist eine geplante Benachrichtigung", 6, 30, 8, 25);
+                    notificationHelper.scheduleNotification("Dies ist eine geplante Benachrichtigung", 6, 30, 12, 24);
                 }
             }
             this.startActivity(new Intent(MainActivity.this, HomeworkActivity.class));
