@@ -18,11 +18,13 @@
     <string name="text_description">Beschreibung</string>
     <string name="text_date">Datum</string>
     <string name="text_module">Modul</string>
-
+    <string name="text_learning_progress">Lernfortschritt</string>
 
     <string name="header_text">DHBW-Verwaltung</string>
     <string name="nav_home">Startseite</string>
     <string name="nav_homework">Hausaufgaben</string>
     <string name="nav_notes">Notizen</string>
     <string name="nav_progress">Fortschritt</string>
+
+    <string name="logo">Logo</string>
 </resources>

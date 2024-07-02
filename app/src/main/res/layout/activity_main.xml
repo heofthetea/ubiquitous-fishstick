@@ -1,118 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:paddingHorizontal="5dp">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="@color/dhbw_red"
-        android:orientation="vertical"
-        android:paddingHorizontal="5dp"
-        android:paddingBottom="10dp">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:src="@drawable/icon_university" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:text="@string/header_text"
-            android:textColor="@color/border_color"
-            android:textSize="24sp" />
-    </LinearLayout>
+    android:paddingHorizontal="10dp"
+    android:id="@+id/landing_page">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/header_background"
         android:orientation="vertical"
-        android:paddingHorizontal="5dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp">
+        android:paddingBottom="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="15dp"
-            tools:ignore="ExtraText">
+            android:background="@color/dhbw_red"
+            android:orientation="vertical"
+            android:paddingHorizontal="15dp"
+            android:paddingBottom="10dp">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_homework" />
+                android:layout_marginVertical="15dp"
+                android:src="@drawable/icon_university"
+                android:contentDescription="@string/logo"/>
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Hausaufgaben"
-                android:textSize="18sp" />
-
-            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/icon_next"
-                android:id="@id/btn_homework"/>
-
+                android:layout_marginBottom="15dp"
+                android:text="@string/header_text"
+                android:textColor="@color/border_color"
+                android:textSize="24sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:background="@drawable/header_background"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingTop="20dp"
+            android:paddingHorizontal="15dp"
+            >
 
-            <ImageView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_notes" />
+                android:orientation="horizontal"
+                android:gravity="center">
 
-            <TextView
-                android:layout_width="0dp"
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_homework"
+                    android:contentDescription="@string/headerHomework"
+                    android:layout_marginEnd="10dp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/nav_homework"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/icon_next"
+                    android:id="@+id/btn_landing_homework"
+                    android:contentDescription="@string/nav_homework"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Notizen"
-                android:textSize="18sp" />
+                android:orientation="horizontal">
 
-            <Button
-                android:layout_width="wrap_content"
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_notes"
+                    android:contentDescription="@string/nav_notes"
+                    android:layout_marginEnd="10dp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/nav_notes"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/icon_next"
+                    android:id="@+id/btn_landing_notes"
+                    android:contentDescription="@string/nav_notes"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/icon_next"
-                android:id="@id/btn_notes"
-                 />
-        </LinearLayout>
+                android:orientation="horizontal"
+                android:gravity="center">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/icon_progress"
+                    android:contentDescription="@string/text_learning_progress"
+                    android:layout_marginEnd="10dp"/>
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/icon_progress" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/text_learning_progress"
+                    android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Lernfortschritt"
-                android:textSize="18sp" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/icon_next"
-                android:id="@id/btn_progress"
-                 />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/icon_next"
+                    android:id="@+id/btn_landing_progress"
+                    android:contentDescription="@string/nav_progress"
+                    />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
+</RelativeLayout>
