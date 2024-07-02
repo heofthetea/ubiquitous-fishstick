@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.Button;
 import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
@@ -14,8 +15,10 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -23,7 +26,7 @@ import androidx.core.view.WindowInsetsCompat;
 import stark.prm.project.Notifications.NotificationHelper;
 import stark.prm.project.data.Database;
 import stark.prm.project.data.Module;
-import stark.prm.project.uiHelper.UiSideMenu;
+
 
 
 
@@ -45,13 +48,17 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.landing_page), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
         Database.getInstance().init(this); // populate the Database with some Modules
+        Database.getInstance().add(
+                new Module("PRM", "Wolfgang Stark")
+        );
+        buttonClick();
 
         try {
             notificationHelper = new NotificationHelper(this);
@@ -110,5 +117,22 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         }
+    }
+    private void buttonClick() {
+      Button buttonHomework = findViewById(R.id.btn_landing_homework);
+      buttonHomework.setOnClickListener(view -> {
+          this.startActivity(new Intent(MainActivity.this, HomeworkActivity.class)); // muss im Merge auf HomeworkListActivity angepasst werden
+      });
+
+
+      Button buttonNotes = findViewById(R.id.btn_landing_notes);
+      buttonNotes.setOnClickListener(view -> {
+          this.startActivity(new Intent(MainActivity.this, NoteActivity.class));
+      });
+
+      Button buttonProgress = findViewById(R.id.btn_landing_progress);
+      buttonProgress.setOnClickListener(view -> {
+          this.startActivity(new Intent(MainActivity.this, ProgressActivity.class));
+      });
     }
 }
