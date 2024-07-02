@@ -68,35 +68,40 @@
             -->
 
             <TextView
-                android:layout_width="166dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp"
                 android:text="@string/text_module"
                 android:textSize="18sp" />
 
             <LinearLayout
-                android:layout_marginTop="10dp"
-                android:layout_width="367dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingBottom="20dp">
+                android:orientation="horizontal">
 
-                <Spinner
-                    android:id="@+id/progress_spinner_module"
-                    android:layout_width="166dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"
-                    android:layout_gravity="start"
-                    android:autofillHints="lecture"
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/input_background"
-                    android:dropDownWidth="match_parent"
-                    android:padding="10dp"
-                    android:spinnerMode="dropdown" />
+                    android:layout_marginEnd="5dp"
+                    >
 
+                    <Spinner
+                        android:id="@+id/progress_spinner_module"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="start"
+                        android:autofillHints="lecture"
+                        android:dropDownWidth="match_parent"
+                        android:padding="10dp"
+                        android:spinnerMode="dropdown" />
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/progress_edit_text_due_date"
-                    android:layout_width="190dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:autofillHints="date"
@@ -112,34 +117,20 @@
 
             <EditText
                 android:id="@+id/progress_edit_text_lecture"
-                android:layout_width="367dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:autofillHints="title"
                 android:background="@drawable/input_background"
                 android:ems="10"
                 android:hint="@string/text_title"
                 android:inputType="text"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="30dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                >
-
-
-            </LinearLayout>
-
+                android:padding="10dp"/>
 
             <EditText
                 android:id="@+id/progress_edit_text_description"
                 android:layout_width="match_parent"
-                android:layout_height="345dp"
+                android:layout_height="200dp"
                 android:layout_marginTop="10dp"
                 android:autofillHints="description"
                 android:background="@drawable/input_background"
@@ -147,10 +138,7 @@
                 android:gravity="top"
                 android:hint="@string/text_description"
                 android:inputType="textMultiLine"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"
-                android:paddingBottom="20dp"/>
-
+                android:padding="10dp"/>
 
             <TextView
                 android:id="@+id/progress_seek_bar_progress_text"
@@ -182,5 +170,4 @@
                 android:paddingVertical="10dp"/>
         </LinearLayout>
     </RelativeLayout>
-
 </androidx.drawerlayout.widget.DrawerLayout>

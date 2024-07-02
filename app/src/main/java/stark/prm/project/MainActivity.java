@@ -55,9 +55,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Database.getInstance().init(this); // populate the Database with some Modules
-        Database.getInstance().add(
-                new Module("PRM", "Wolfgang Stark")
-        );
+
         buttonClick();
 
         try {
@@ -69,10 +67,10 @@ public class MainActivity extends AppCompatActivity {
                 if (!hasExactAlarmPermission()) {
                     ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SCHEDULE_EXACT_ALARM}, REQUEST_CODE_SCHEDULE_EXACT_ALARM);
                 } else {
-                    notificationHelper.scheduleNotification("Dies ist eine geplante Benachrichtigung", 6, 30, 12, 24);
+                    notificationHelper.scheduleNotification("Dies ist eine geplante Benachrichtigung", 6, 30, 13, 55);
                 }
             }
-            this.startActivity(new Intent(MainActivity.this, HomeworkActivity.class));
+            //this.startActivity(new Intent(MainActivity.this, HomeworkActivity.class));
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             Log.e("MainActivity", "Error in onCreate: " + e.getMessage());
@@ -107,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             //Kann tehoretisch auch weg ist aber nur ein beispeil test für benachrichtigungen
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Log.d("MainActivity", "Permission granted, scheduling notification");
-                notificationHelper.scheduleNotification("Dies ist eine geplante Benachrichtigung", 6, 30, 21, 16);
+                notificationHelper.scheduleNotification("Dies ist eine geplante Benachrichtigung", 6, 30, 13, 55);
             } else {
                 Log.d("MainActivity", "Permission Not granted, scheduling notification");
                 // Berechtigung verweigert, leite Benutzer zu den Einstellungen
@@ -121,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
     private void buttonClick() {
       Button buttonHomework = findViewById(R.id.btn_landing_homework);
       buttonHomework.setOnClickListener(view -> {
-          this.startActivity(new Intent(MainActivity.this, HomeworkActivity.class)); // muss im Merge auf HomeworkListActivity angepasst werden
+          this.startActivity(new Intent(MainActivity.this, HomeworkListActivity.class));
       });
 
 
