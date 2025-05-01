@@ -2,4 +2,5 @@ This-is-boring-your-mom-is-a-data-invalidation-passt-schon-qualitiy-code-woooooo
 
 ## In loving Memory
 🪦 14.10.2024 Niko <br>
-🪦 14.10.2024 Timo
+🪦 14.10.2024 Timo <br>
+🪦 10.04.2025 Josia
